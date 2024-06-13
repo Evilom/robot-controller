@@ -4,8 +4,10 @@ from tkinter import ttk
 import threading
 import serial
 
-sername = "/dev/ttyACM0"
+serName = "/dev/ttyACM0"
 ser = None
+lPos = [0,0,0,0,0,0]
+jPos = [0,0,0,0,0,0]
 
 def on_button_click(button_label):
     print(f"Button {button_label} clicked")
@@ -17,8 +19,8 @@ def on_confirm():
 def on_connect_command():
     global ser
     try:
-        ser = serial.Serial(sername, 115200, timeout=1)
-        print(f"Connected to: {sername}")
+        ser = serial.Serial(serName, 115200, timeout=1)
+        print(f"Connected to: {serName}")
         threading.Thread(target=read_from_serial, daemon=True).start()
     except serial.SerialException as e:
         print(f"Failed to connect: {e}")
@@ -37,8 +39,24 @@ def read_from_serial():
         if ser and ser.in_waiting > 0:
             data = ser.readline().decode().strip()
             if data:
+                if(data.startswith("ok")):
+                    lPos = parseLineToPositions(data)
+                    print(lPos)
+                
                 print(data)
         time.sleep(0.1)  # 稍微延迟以减少CPU使用率
+
+def parseLineToPositions(line):
+    # 解析行并转换为目标位置列表
+    parts = line.strip().split()
+    positions = []
+    for part in parts:
+        try:
+            positions.append(float(part))
+        except ValueError:
+            # 忽略无法转换为浮点数的部分
+            continue
+    return positions
 
 # 创建主窗口
 root = tk.Tk()
@@ -88,8 +106,18 @@ command_entry.grid(row=8, column=1, columnspan=3)
 send_button = tk.Button(root, text="发送", command=on_send_command)
 send_button.grid(row=8, column=4)
 
+
 connect_button = tk.Button(root, text="连接", command=on_connect_command)
+connect_button.grid(row=9, column=0)
+
+connect_button = tk.Button(root, text="开始", command=lambda: ser.write(f'!START\n'.encode('utf-8')))
 connect_button.grid(row=9, column=1)
+
+connect_button = tk.Button(root, text="JPos", command=lambda: ser.write(f'#GETJPOS\n'.encode('utf-8')))
+connect_button.grid(row=9, column=2)
+
+connect_button = tk.Button(root, text="LPos", command=lambda:ser.write(f'#GETLPOS\n'.encode('utf-8')))
+connect_button.grid(row=9, column=3)
 
 # 运行主循环
 root.mainloop()
