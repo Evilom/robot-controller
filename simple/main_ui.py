@@ -69,6 +69,9 @@ def main():
     start_button = tk.Button(bottom_frame, text="Start", command=lambda: send_command('!START'), width=10, height=1)
     start_button.pack(side=tk.LEFT, padx=10)
 
+    start_button = tk.Button(bottom_frame, text="Home", command=lambda: send_command('!HOME'), width=10, height=1)
+    start_button.pack(side=tk.LEFT, padx=10)
+
     jpos_button = tk.Button(bottom_frame, text="JPos", command=lambda: send_command('#GETJPOS'), width=10, height=1)
     jpos_button.pack(side=tk.LEFT, padx=10)
 

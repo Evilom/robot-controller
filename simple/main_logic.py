@@ -26,6 +26,7 @@ def handle_single_axis(axis, action):
         print(f"Decrementing J{axis_index+1}")
     else:
         print(f"Invalid action for single axis: {action}")
+    send_command(formatCommand(lPos))
 
 def handle_linkage_axis(axis, action):
     if action == "+":
@@ -53,6 +54,10 @@ def send_command(command):
         ser.write(f'{command}\n'.encode('utf-8'))
     else:
         print("Serial port not connected.")
+
+def formatCommand(positions):
+    command_str = "@{},{}\n".format(",".join(map(str, positions)), 5)
+    return command_str.encode()
 
 def read_serial_data():
     global ser
