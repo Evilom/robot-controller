@@ -87,6 +87,8 @@ def get_serial_ports():
 def connect_to_serial(comport):
     global ser
     try:
+        if(comport == ""):
+            comport = "/dev/ttyACM0"
         ser = serial.Serial(comport, 115200, timeout=1)
         print(f"Connected to: {comport}")
         threading.Thread(target=read_serial_data, daemon=True).start()
@@ -110,7 +112,7 @@ def formatCommand(positions,type='&'):
     return command_str
 
 def read_serial_data():
-    global ser,jPos,canGetLPOs,canGetJPOs
+    global ser,jPos,lPos,canGetLPOs,canGetJPOs
     while True:
         if ser and ser.in_waiting > 0:
             data = ser.readline().decode().strip()
