@@ -1,16 +1,42 @@
 import tkinter as tk
 from tkinter import ttk
-from main_logic import handle_button_click, confirm_speed, connect_to_serial, send_command
+from main_logic import handle_button_click, confirm_speed, connect_to_serial, send_command, get_serial_ports, set_move_step
 
 def main():
     root = tk.Tk()
     root.title("Robot Control Panel")
-    root.geometry("550x550")  # 设置初始窗口大小
+    root.geometry("550x720")  # 设置初始窗口大小
     root.configure(bg='white')  # 设定背景颜色为白色
 
     # 标题
     title_label = tk.Label(root, text="Robot Control Interface", font=("Arial", 16), bg='white')
     title_label.pack(pady=10)
+
+    # COM端口选择部分
+    com_frame = tk.Frame(root, bg='white')
+    com_frame.pack(pady=10)
+
+    com_label = tk.Label(com_frame, text="COM Port:", font=("Arial", 12), bg='white')
+    com_label.pack(side=tk.LEFT, padx=5)
+
+    # 获取可用的COM端口列表
+    ports = get_serial_ports()
+    com_value = tk.StringVar()
+    com_dropdown = ttk.Combobox(com_frame, textvariable=com_value, values=ports, state='readonly', width=10)
+    com_dropdown.pack(side=tk.LEFT, padx=5)
+
+    # 步进设置部分
+    step_frame = tk.Frame(root, bg='white')
+    step_frame.pack(pady=10)
+
+    step_label = tk.Label(step_frame, text="Step (units):", font=("Arial", 12), bg='white')
+    step_label.pack(side=tk.LEFT, padx=5)
+
+    # 可选择的步进值
+    step_options = ['0.1', '1', '5', '10']
+    step_value = tk.StringVar(value=step_options[1])  # 默认设置为1
+    for option in step_options:
+        tk.Radiobutton(step_frame, text=option,command=lambda opt=option: set_move_step(opt), variable=step_value,value=option, bg='white').pack(side=tk.LEFT)
 
     # 单轴和联动按钮布局
     buttons_frame = tk.Frame(root, bg='white')
@@ -63,20 +89,18 @@ def main():
     bottom_frame = tk.Frame(root, bg='white')
     bottom_frame.pack(pady=10)
 
-    connect_button = tk.Button(bottom_frame, text="Connect", command=connect_to_serial, width=10, height=1)
-    connect_button.pack(side=tk.LEFT, padx=10)
+    buttons = [
+        ("Connect", lambda: connect_to_serial(com_value.get())),
+        ("Start", lambda: send_command('!START')),
+        ("Home", lambda: send_command('!HOME')),
+        ("Reset", lambda: send_command('!RESET')),
+        ("Stop", lambda: send_command('!DISABLE')),
+        ("JPos", lambda: send_command('#GETJPOS')),
+        ("LPos", lambda: send_command('#GETLPOS')),
+    ]
 
-    start_button = tk.Button(bottom_frame, text="Start", command=lambda: send_command('!START'), width=10, height=1)
-    start_button.pack(side=tk.LEFT, padx=10)
-
-    start_button = tk.Button(bottom_frame, text="Home", command=lambda: send_command('!HOME'), width=10, height=1)
-    start_button.pack(side=tk.LEFT, padx=10)
-
-    jpos_button = tk.Button(bottom_frame, text="JPos", command=lambda: send_command('#GETJPOS'), width=10, height=1)
-    jpos_button.pack(side=tk.LEFT, padx=10)
-
-    lpos_button = tk.Button(bottom_frame, text="LPos", command=lambda: send_command('#GETLPOS'), width=10, height=1)
-    lpos_button.pack(side=tk.LEFT, padx=10)
+    for idx, (text, cmd) in enumerate(buttons):
+        tk.Button(bottom_frame, text=text, command=cmd, width=10, height=1).grid(row=int(idx/4), column=idx%4, padx=(5 if idx else 0), pady=5)
 
     root.mainloop()
 
