@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
-from main_logic import handle_button_click, confirm_speed, connect_to_serial, send_command, get_serial_ports, set_move_step
+from main_logic import handle_button_click, confirm_speed, connect_to_serial, send_command, get_serial_ports, set_ik_method, set_move_step
 
 def main():
     root = tk.Tk()
@@ -37,6 +37,12 @@ def main():
     step_value = tk.StringVar(value=step_options[1])  # 默认设置为1
     for option in step_options:
         tk.Radiobutton(step_frame, text=option,command=lambda opt=option: set_move_step(opt), variable=step_value,value=option, bg='white').pack(side=tk.LEFT)
+
+    # 可选择的逆解方式
+    ik_options = ['default', 'common']
+    ik_value = tk.StringVar(value=ik_options[1])  # 默认设置为1
+    for option in ik_options:
+        tk.Radiobutton(step_frame, text=option,command=lambda opt=option: set_ik_method(opt), variable=ik_value,value=option, bg='white').pack(side=tk.LEFT)
 
     # 单轴和联动按钮布局
     buttons_frame = tk.Frame(root, bg='white')

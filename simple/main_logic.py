@@ -4,13 +4,20 @@ import threading
 
 import serial.tools.list_ports
 
+from simple.ik6r import ikine
+
 serName = "/dev/ttyACM0"
 ser = None
 lPos = [0, 0, 0, 0, 0, 0]
 jPos = [0, 0, 0, 0, 0, 0]
+a = [35, 146, 52, 0, 0, 0]
+d = [0, 0, 0, 115, 0, 72]
+t = [0, 0, 0, 0, 0, 0]
+pu = [0, 0, 90, 0, 0, 0]
 lLabels = ["X", "Y", "Z", "A", "B", "C"]
 moveStep = 1
 moveSpeed = 5
+ikMethod = 'default'
 canGetJPOs = False
 canGetLPOs = False
 
@@ -41,7 +48,13 @@ def set_move_step(step):
     moveStep = float(step)
     print(f'{moveStep}')
 
+def set_ik_method(method):
+    global ikMethod
+    ikMethod = method
+    print(f'{method}')
+
 def handle_linkage_axis(axis, action):
+    global ikMethod,lPos,jPos
     axis_index = lLabels.index(axis)
     if action == "+":
         lPos[axis_index] += moveStep
@@ -52,7 +65,15 @@ def handle_linkage_axis(axis, action):
     else:
         print(f"Invalid action for linkage axis: {action}")
     print(lPos)
-    send_command(formatCommand(lPos,'@'))
+    if(ikMethod == 'default'):
+        send_command(formatCommand(lPos,'@'))
+    elif (ikMethod == 'common'):
+        p = lPos.copy()
+        p[2] -= 109
+        jPos = ikine(a, d, p, t, 1)
+        print(jPos)
+        send_command(formatCommand(jPos))
+
 
 def confirm_speed(speed):
     global moveSpeed
