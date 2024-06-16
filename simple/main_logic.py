@@ -4,7 +4,7 @@ import threading
 
 import serial.tools.list_ports
 
-from simple.ik6r import ikine
+from ik6r import deg2pul, ikine
 
 serName = "/dev/ttyACM0"
 ser = None
@@ -71,6 +71,7 @@ def handle_linkage_axis(axis, action):
         p = lPos.copy()
         p[2] -= 109
         jPos = ikine(a, d, p, t, 1)
+        jPos = deg2pul(jPos,pu)
         print(jPos)
         send_command(formatCommand(jPos))
 

@@ -40,7 +40,7 @@ def main():
 
     # 可选择的逆解方式
     ik_options = ['default', 'common']
-    ik_value = tk.StringVar(value=ik_options[1])  # 默认设置为1
+    ik_value = tk.StringVar(value=ik_options[0])  # 默认设置为1
     for option in ik_options:
         tk.Radiobutton(step_frame, text=option,command=lambda opt=option: set_ik_method(opt), variable=ik_value,value=option, bg='white').pack(side=tk.LEFT)
 
