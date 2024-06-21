@@ -93,7 +93,7 @@ def deg2pul(dp, pul):
     k5 = pul[4] + dp[4]
     k6 = pul[5] + dp[5]
     # 将每个元素格式化为小数点后两位
-    return [round(k1, 2), round(k2, 2), round(k3, 2), round(k4, 2), round(k5, 2), round(k6, 2)]
+    return [round(k1, 2), round(k2, 2), round(k3, 2), round(k4, 2), round(k5, 2), -(round(k6, 2)+360)%360]
 
 
 def process_line(line, x_offset, y_offset, z_offset):
@@ -111,7 +111,7 @@ def process_line(line, x_offset, y_offset, z_offset):
     a = [35, 146, 52, 0, 0, 0]
     d = [0, 0, 0, 115, 0, 72]
     p = [x, y, z, -90, 70, -90]
-    t = [0, 0, 0, 0, 0, 0]
+    t = [37.61,2.48,-90.87, -89.98,65.92,90.05]
     Q = ikine(a, d, p, t, 1)
     result = deg2pul(Q, [0, 0, 90, 0, 0, 0])
     
@@ -128,7 +128,7 @@ def main():
     z_offset = 100
 
     # 读取文件
-    with open("input.txt", "r") as file:
+    with open("simple/input2.txt", "r") as file:
         lines = file.readlines()
 
     results = []
@@ -138,7 +138,7 @@ def main():
         results.append(result)
         
     # 将结果写入文件
-    with open("output.txt", "w") as file:
+    with open("simple/output.txt", "w") as file:
         file.writelines(results)
         
     end = time.process_time()

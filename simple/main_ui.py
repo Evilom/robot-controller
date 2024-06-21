@@ -8,10 +8,6 @@ def main():
     root.geometry("550x720")  # 设置初始窗口大小
     root.configure(bg='white')  # 设定背景颜色为白色
 
-    # 标题
-    title_label = tk.Label(root, text="Robot Control Interface", font=("Arial", 16), bg='white')
-    title_label.pack(pady=10)
-
     # COM端口选择部分
     com_frame = tk.Frame(root, bg='white')
     com_frame.pack(pady=10)
@@ -39,10 +35,31 @@ def main():
         tk.Radiobutton(step_frame, text=option,command=lambda opt=option: set_move_step(opt), variable=step_value,value=option, bg='white').pack(side=tk.LEFT)
 
     # 可选择的逆解方式
+    ik_frame = tk.Frame(root, bg='white')
+    ik_frame.pack(pady=10)
+    
+    ik_label = tk.Label(ik_frame, text="IK method:", font=("Arial", 12), bg='white')
+    ik_label.pack(side=tk.LEFT, padx=5)
+
     ik_options = ['default', 'common']
     ik_value = tk.StringVar(value=ik_options[0])  # 默认设置为1
     for option in ik_options:
-        tk.Radiobutton(step_frame, text=option,command=lambda opt=option: set_ik_method(opt), variable=ik_value,value=option, bg='white').pack(side=tk.LEFT)
+        tk.Radiobutton(ik_frame, text=option,command=lambda opt=option: set_ik_method(opt), variable=ik_value,value=option, bg='white').pack(side=tk.LEFT)
+
+
+    # 可选择cmd方式
+    cmd_frame = tk.Frame(root, bg='white')
+    cmd_frame.pack(pady=10)
+    
+    cmd_label = tk.Label(cmd_frame, text="CmdMode", font=("Arial", 12), bg='white')
+    cmd_label.pack(side=tk.LEFT, padx=5)
+
+    cmd_options = ['SEQ', 'INT', 'TRJ', 'TUN']
+    cmd_value = tk.StringVar(value=cmd_options[0])  # 默认设置为1
+    for option in cmd_options:
+        tk.Radiobutton(cmd_frame, text=option,command=lambda opt=option: send_command(f'#CMDMODE {str(cmd_options.index(opt)+1)}'), variable=cmd_value,value=option, bg='white').pack(side=tk.LEFT)
+
+
 
     # 单轴和联动按钮布局
     buttons_frame = tk.Frame(root, bg='white')
