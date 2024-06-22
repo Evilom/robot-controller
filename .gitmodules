@@ -1,0 +1,3 @@
+[submodule "PySide-from-onedark"]
+	path = PySide-from-onedark
+	url = https://github.com/le-cheng/PySide-from-onedark.git
