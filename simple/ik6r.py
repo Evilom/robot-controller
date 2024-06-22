@@ -110,8 +110,9 @@ def process_line(line, x_offset, y_offset, z_offset):
     # 根据需要，使用 x, y, z 进行你的计算
     a = [35, 146, 52, 0, 0, 0]
     d = [0, 0, 0, 115, 0, 72]
-    p = [x, y, z, -90, 70, -90]
-    t = [37.61,2.48,-90.87, -89.98,65.92,90.05]
+    p = [x, y, z, 0, 90, -0]
+    # t = [37.61,2.48,-90.87, -89.98,65.92,90.05]
+    t = [0,0,0,0,0,0]
     Q = ikine(a, d, p, t, 1)
     result = deg2pul(Q, [0, 0, 90, 0, 0, 0])
     
@@ -123,9 +124,9 @@ def main():
     start = time.process_time()
 
     # 偏移量
-    x_offset = 75
-    y_offset = -75
-    z_offset = 100
+    x_offset = 0
+    y_offset = 0
+    z_offset = 150
 
     # 读取文件
     with open("simple/input2.txt", "r") as file:

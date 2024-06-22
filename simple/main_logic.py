@@ -97,13 +97,19 @@ def connect_to_serial(comport):
         print(f"Failed to connect: {e}")
 
 def send_command(command):
-    global ser,canGetJPOs,canGetLPOs
+    global ser,canGetJPOs,canGetLPOs,lPos,jPos
     if ser and ser.is_open:
         ser.write(f'{command}\n'.encode('utf-8'))
         if command == '#GETJPOS':
             canGetJPOs = True
         elif command == '#GETLPOS':
             canGetLPOs = True
+        elif command == '!HOME':
+            lPos = [222,0,307,0,90,0]
+            jPos = [0,0,90,0,0,0]
+        elif command == '!START' or command == '!RESET':
+            lPos = [89.41,-0,146.74,180.0,73.0,180.0]
+            jPos = [0.0,-73.0,180,0,0,0]
     else:
         print("Serial port not connected.")
 
