@@ -1,0 +1,3 @@
+[submodule "PyOneDark"]
+	path = PyOneDark
+	url = https://github.com/Evilom/PyOneDark.git
