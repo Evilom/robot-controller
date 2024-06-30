@@ -157,3 +157,14 @@ class MainFunctions():
         button.setMinimumHeight(40)
         button.clicked.connect(lambda: handle_button_click(text))
         return button
+    def create_click_button(text, parent):
+        button = PyPushButton(
+            text=text,
+            radius=8,
+            color=parent.themes["app_color"]["text_foreground"],
+            bg_color=parent.themes["app_color"]["dark_one"],
+            bg_color_hover=parent.themes["app_color"]["dark_three"],
+            bg_color_pressed=parent.themes["app_color"]["dark_four"]
+        )
+        button.setMinimumHeight(40)
+        return button

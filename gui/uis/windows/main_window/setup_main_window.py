@@ -22,6 +22,7 @@ import os
 
 # IMPORT QT CORE
 # ///////////////////////////////////////////////////////////////
+from logic.main_logic import connect_to_serial, send_command
 from qt_core import *
 
 # IMPORT SETTINGS
@@ -269,168 +270,173 @@ class SetupMainWindow:
         self.logo_svg = QSvgWidget(Functions.set_svg_image("logo_home.svg"))
         self.ui.load_pages.logo_layout.addWidget(self.logo_svg, Qt.AlignCenter, Qt.AlignCenter)
 
-        # PAGE 2
-        # CIRCULAR PROGRESS 1
-        self.circular_progress_1 = PyCircularProgress(
-            value = 80,
-            progress_color = self.themes["app_color"]["context_color"],
-            text_color = self.themes["app_color"]["text_title"],
-            font_size = 14,
-            bg_color = self.themes["app_color"]["dark_four"]
-        )
-        self.circular_progress_1.setFixedSize(200,200)
+        self.connect_btn = MainFunctions.create_click_button(" CONNECT ", self)
+        self.connect_btn.clicked.connect(lambda: connect_to_serial(""))
 
-        # CIRCULAR PROGRESS 2
-        self.circular_progress_2 = PyCircularProgress(
-            value = 45,
-            progress_width = 4,
-            progress_color = self.themes["app_color"]["context_color"],
-            text_color = self.themes["app_color"]["context_color"],
-            font_size = 14,
-            bg_color = self.themes["app_color"]["bg_three"]
-        )
-        self.circular_progress_2.setFixedSize(160,160)
+        self.ui.load_pages.logo_layout.addWidget(self.connect_btn, Qt.AlignCenter, Qt.AlignCenter)
 
-        # CIRCULAR PROGRESS 3
-        self.circular_progress_3 = PyCircularProgress(
-            value = 75,
-            progress_width = 2,
-            progress_color = self.themes["app_color"]["pink"],
-            text_color = self.themes["app_color"]["white"],
-            font_size = 14,
-            bg_color = self.themes["app_color"]["bg_three"]
-        )
-        self.circular_progress_3.setFixedSize(140,140)
-        self.circular_progress_4 = PyCircularProgress(
-            value = 75,
-            progress_width = 2,
-            progress_color = self.themes["app_color"]["pink"],
-            text_color = self.themes["app_color"]["white"],
-            font_size = 14,
-            bg_color = self.themes["app_color"]["bg_three"]
-        )
-        self.circular_progress_4.setFixedSize(140,140)
-        self.circular_progress_5 = PyCircularProgress(
-            value = 75,
-            progress_width = 2,
-            progress_color = self.themes["app_color"]["pink"],
-            text_color = self.themes["app_color"]["white"],
-            font_size = 14,
-            bg_color = self.themes["app_color"]["bg_three"]
-        )
-        self.circular_progress_5.setFixedSize(140,140)
+        # # PAGE 2
+        # # CIRCULAR PROGRESS 1
+        # self.circular_progress_1 = PyCircularProgress(
+        #     value = 80,
+        #     progress_color = self.themes["app_color"]["context_color"],
+        #     text_color = self.themes["app_color"]["text_title"],
+        #     font_size = 14,
+        #     bg_color = self.themes["app_color"]["dark_four"]
+        # )
+        # self.circular_progress_1.setFixedSize(200,200)
 
-        # PY SLIDER 1
-        self.vertical_slider_1 = PySlider(
-            margin=8,
-            bg_size=10,
-            bg_radius=5,
-            handle_margin=-3,
-            handle_size=16,
-            handle_radius=8,
-            bg_color = self.themes["app_color"]["dark_three"],
-            bg_color_hover = self.themes["app_color"]["dark_four"],
-            handle_color = self.themes["app_color"]["context_color"],
-            handle_color_hover = self.themes["app_color"]["context_hover"],
-            handle_color_pressed = self.themes["app_color"]["context_pressed"]
-        )
-        self.vertical_slider_1.setMinimumHeight(100)
+        # # CIRCULAR PROGRESS 2
+        # self.circular_progress_2 = PyCircularProgress(
+        #     value = 45,
+        #     progress_width = 4,
+        #     progress_color = self.themes["app_color"]["context_color"],
+        #     text_color = self.themes["app_color"]["context_color"],
+        #     font_size = 14,
+        #     bg_color = self.themes["app_color"]["bg_three"]
+        # )
+        # self.circular_progress_2.setFixedSize(160,160)
 
-        # PY SLIDER 2
-        self.vertical_slider_2 = PySlider(
-            bg_color = self.themes["app_color"]["dark_three"],
-            bg_color_hover = self.themes["app_color"]["dark_three"],
-            handle_color = self.themes["app_color"]["context_color"],
-            handle_color_hover = self.themes["app_color"]["context_hover"],
-            handle_color_pressed = self.themes["app_color"]["context_pressed"]
-        )
-        self.vertical_slider_2.setMinimumHeight(100)
+        # # CIRCULAR PROGRESS 3
+        # self.circular_progress_3 = PyCircularProgress(
+        #     value = 75,
+        #     progress_width = 2,
+        #     progress_color = self.themes["app_color"]["pink"],
+        #     text_color = self.themes["app_color"]["white"],
+        #     font_size = 14,
+        #     bg_color = self.themes["app_color"]["bg_three"]
+        # )
+        # self.circular_progress_3.setFixedSize(140,140)
+        # self.circular_progress_4 = PyCircularProgress(
+        #     value = 75,
+        #     progress_width = 2,
+        #     progress_color = self.themes["app_color"]["pink"],
+        #     text_color = self.themes["app_color"]["white"],
+        #     font_size = 14,
+        #     bg_color = self.themes["app_color"]["bg_three"]
+        # )
+        # self.circular_progress_4.setFixedSize(140,140)
+        # self.circular_progress_5 = PyCircularProgress(
+        #     value = 75,
+        #     progress_width = 2,
+        #     progress_color = self.themes["app_color"]["pink"],
+        #     text_color = self.themes["app_color"]["white"],
+        #     font_size = 14,
+        #     bg_color = self.themes["app_color"]["bg_three"]
+        # )
+        # self.circular_progress_5.setFixedSize(140,140)
 
-        # PY SLIDER 3
-        self.vertical_slider_3 = PySlider(
-            margin=8,
-            bg_size=10,
-            bg_radius=5,
-            handle_margin=-3,
-            handle_size=16,
-            handle_radius=8,
-            bg_color = self.themes["app_color"]["dark_three"],
-            bg_color_hover = self.themes["app_color"]["dark_four"],
-            handle_color = self.themes["app_color"]["context_color"],
-            handle_color_hover = self.themes["app_color"]["context_hover"],
-            handle_color_pressed = self.themes["app_color"]["context_pressed"]
-        )
-        self.vertical_slider_3.setOrientation(Qt.Horizontal)
-        self.vertical_slider_3.setMaximumWidth(200)
+        # # PY SLIDER 1
+        # self.vertical_slider_1 = PySlider(
+        #     margin=8,
+        #     bg_size=10,
+        #     bg_radius=5,
+        #     handle_margin=-3,
+        #     handle_size=16,
+        #     handle_radius=8,
+        #     bg_color = self.themes["app_color"]["dark_three"],
+        #     bg_color_hover = self.themes["app_color"]["dark_four"],
+        #     handle_color = self.themes["app_color"]["context_color"],
+        #     handle_color_hover = self.themes["app_color"]["context_hover"],
+        #     handle_color_pressed = self.themes["app_color"]["context_pressed"]
+        # )
+        # self.vertical_slider_1.setMinimumHeight(100)
 
-        # PY SLIDER 4
-        self.vertical_slider_4 = PySlider(
-            bg_color = self.themes["app_color"]["dark_three"],
-            bg_color_hover = self.themes["app_color"]["dark_three"],
-            handle_color = self.themes["app_color"]["context_color"],
-            handle_color_hover = self.themes["app_color"]["context_hover"],
-            handle_color_pressed = self.themes["app_color"]["context_pressed"]
-        )
-        self.vertical_slider_4.setOrientation(Qt.Horizontal)
-        self.vertical_slider_4.setMaximumWidth(200)
+        # # PY SLIDER 2
+        # self.vertical_slider_2 = PySlider(
+        #     bg_color = self.themes["app_color"]["dark_three"],
+        #     bg_color_hover = self.themes["app_color"]["dark_three"],
+        #     handle_color = self.themes["app_color"]["context_color"],
+        #     handle_color_hover = self.themes["app_color"]["context_hover"],
+        #     handle_color_pressed = self.themes["app_color"]["context_pressed"]
+        # )
+        # self.vertical_slider_2.setMinimumHeight(100)
 
-        # ICON BUTTON 1
-        self.icon_button_1 = PyIconButton(
-            icon_path = Functions.set_svg_icon("icon_heart.svg"),
-            parent = self,
-            app_parent = self.ui.central_widget,
-            tooltip_text = "Icon button - Heart",
-            width = 40,
-            height = 40,
-            radius = 20,
-            dark_one = self.themes["app_color"]["dark_one"],
-            icon_color = self.themes["app_color"]["icon_color"],
-            icon_color_hover = self.themes["app_color"]["icon_hover"],
-            icon_color_pressed = self.themes["app_color"]["icon_active"],
-            icon_color_active = self.themes["app_color"]["icon_active"],
-            bg_color = self.themes["app_color"]["dark_one"],
-            bg_color_hover = self.themes["app_color"]["dark_three"],
-            bg_color_pressed = self.themes["app_color"]["pink"]
-        )
+        # # PY SLIDER 3
+        # self.vertical_slider_3 = PySlider(
+        #     margin=8,
+        #     bg_size=10,
+        #     bg_radius=5,
+        #     handle_margin=-3,
+        #     handle_size=16,
+        #     handle_radius=8,
+        #     bg_color = self.themes["app_color"]["dark_three"],
+        #     bg_color_hover = self.themes["app_color"]["dark_four"],
+        #     handle_color = self.themes["app_color"]["context_color"],
+        #     handle_color_hover = self.themes["app_color"]["context_hover"],
+        #     handle_color_pressed = self.themes["app_color"]["context_pressed"]
+        # )
+        # self.vertical_slider_3.setOrientation(Qt.Horizontal)
+        # self.vertical_slider_3.setMaximumWidth(200)
 
-        # ICON BUTTON 2
-        self.icon_button_2 = PyIconButton(
-            icon_path = Functions.set_svg_icon("icon_add_user.svg"),
-            parent = self,
-            app_parent = self.ui.central_widget,
-            tooltip_text = "BTN with tooltip",
-            width = 40,
-            height = 40,
-            radius = 8,
-            dark_one = self.themes["app_color"]["dark_one"],
-            icon_color = self.themes["app_color"]["icon_color"],
-            icon_color_hover = self.themes["app_color"]["icon_hover"],
-            icon_color_pressed = self.themes["app_color"]["white"],
-            icon_color_active = self.themes["app_color"]["icon_active"],
-            bg_color = self.themes["app_color"]["dark_one"],
-            bg_color_hover = self.themes["app_color"]["dark_three"],
-            bg_color_pressed = self.themes["app_color"]["green"],
-        )
+        # # PY SLIDER 4
+        # self.vertical_slider_4 = PySlider(
+        #     bg_color = self.themes["app_color"]["dark_three"],
+        #     bg_color_hover = self.themes["app_color"]["dark_three"],
+        #     handle_color = self.themes["app_color"]["context_color"],
+        #     handle_color_hover = self.themes["app_color"]["context_hover"],
+        #     handle_color_pressed = self.themes["app_color"]["context_pressed"]
+        # )
+        # self.vertical_slider_4.setOrientation(Qt.Horizontal)
+        # self.vertical_slider_4.setMaximumWidth(200)
 
-        # ICON BUTTON 3
-        self.icon_button_3 = PyIconButton(
-            icon_path = Functions.set_svg_icon("icon_add_user.svg"),
-            parent = self,
-            app_parent = self.ui.central_widget,
-            tooltip_text = "BTN actived! (is_actived = True)",
-            width = 40,
-            height = 40,
-            radius = 8,
-            dark_one = self.themes["app_color"]["dark_one"],
-            icon_color = self.themes["app_color"]["icon_color"],
-            icon_color_hover = self.themes["app_color"]["icon_hover"],
-            icon_color_pressed = self.themes["app_color"]["white"],
-            icon_color_active = self.themes["app_color"]["icon_active"],
-            bg_color = self.themes["app_color"]["dark_one"],
-            bg_color_hover = self.themes["app_color"]["dark_three"],
-            bg_color_pressed = self.themes["app_color"]["context_color"],
-            is_active = True
-        )
+        # # ICON BUTTON 1
+        # self.icon_button_1 = PyIconButton(
+        #     icon_path = Functions.set_svg_icon("icon_heart.svg"),
+        #     parent = self,
+        #     app_parent = self.ui.central_widget,
+        #     tooltip_text = "Icon button - Heart",
+        #     width = 40,
+        #     height = 40,
+        #     radius = 20,
+        #     dark_one = self.themes["app_color"]["dark_one"],
+        #     icon_color = self.themes["app_color"]["icon_color"],
+        #     icon_color_hover = self.themes["app_color"]["icon_hover"],
+        #     icon_color_pressed = self.themes["app_color"]["icon_active"],
+        #     icon_color_active = self.themes["app_color"]["icon_active"],
+        #     bg_color = self.themes["app_color"]["dark_one"],
+        #     bg_color_hover = self.themes["app_color"]["dark_three"],
+        #     bg_color_pressed = self.themes["app_color"]["pink"]
+        # )
+
+        # # ICON BUTTON 2
+        # self.icon_button_2 = PyIconButton(
+        #     icon_path = Functions.set_svg_icon("icon_add_user.svg"),
+        #     parent = self,
+        #     app_parent = self.ui.central_widget,
+        #     tooltip_text = "BTN with tooltip",
+        #     width = 40,
+        #     height = 40,
+        #     radius = 8,
+        #     dark_one = self.themes["app_color"]["dark_one"],
+        #     icon_color = self.themes["app_color"]["icon_color"],
+        #     icon_color_hover = self.themes["app_color"]["icon_hover"],
+        #     icon_color_pressed = self.themes["app_color"]["white"],
+        #     icon_color_active = self.themes["app_color"]["icon_active"],
+        #     bg_color = self.themes["app_color"]["dark_one"],
+        #     bg_color_hover = self.themes["app_color"]["dark_three"],
+        #     bg_color_pressed = self.themes["app_color"]["green"],
+        # )
+
+        # # ICON BUTTON 3
+        # self.icon_button_3 = PyIconButton(
+        #     icon_path = Functions.set_svg_icon("icon_add_user.svg"),
+        #     parent = self,
+        #     app_parent = self.ui.central_widget,
+        #     tooltip_text = "BTN actived! (is_actived = True)",
+        #     width = 40,
+        #     height = 40,
+        #     radius = 8,
+        #     dark_one = self.themes["app_color"]["dark_one"],
+        #     icon_color = self.themes["app_color"]["icon_color"],
+        #     icon_color_hover = self.themes["app_color"]["icon_hover"],
+        #     icon_color_pressed = self.themes["app_color"]["white"],
+        #     icon_color_active = self.themes["app_color"]["icon_active"],
+        #     bg_color = self.themes["app_color"]["dark_one"],
+        #     bg_color_hover = self.themes["app_color"]["dark_three"],
+        #     bg_color_pressed = self.themes["app_color"]["context_color"],
+        #     is_active = True
+        # )
 
         self.push_button_j1_s = MainFunctions.create_push_button("J1 -", self)
         self.push_button_j2_s = MainFunctions.create_push_button("J2 -", self)
@@ -444,6 +450,7 @@ class SetupMainWindow:
         self.push_button_j4_a = MainFunctions.create_push_button("J4 +", self)
         self.push_button_j5_a = MainFunctions.create_push_button("J5 +", self)
         self.push_button_j6_a = MainFunctions.create_push_button("J6 +", self)
+        
         self.push_button_x_s = MainFunctions.create_push_button("X -", self)
         self.push_button_y_s = MainFunctions.create_push_button("Y -", self)
         self.push_button_z_s = MainFunctions.create_push_button("Z -", self)
@@ -457,75 +464,92 @@ class SetupMainWindow:
         self.push_button_b_a = MainFunctions.create_push_button("B +", self)
         self.push_button_c_a = MainFunctions.create_push_button("C +", self)
 
-        # PY LINE EDIT
-        self.line_edit = PyLineEdit(
-            text = "",
-            place_holder_text = "Place holder text",
-            radius = 8,
-            border_size = 2,
-            color = self.themes["app_color"]["text_foreground"],
-            selection_color = self.themes["app_color"]["white"],
-            bg_color = self.themes["app_color"]["dark_one"],
-            bg_color_active = self.themes["app_color"]["dark_three"],
-            context_color = self.themes["app_color"]["context_color"]
-        )
-        self.line_edit.setMinimumHeight(30)
+        self.start_button = MainFunctions.create_click_button("Start", self)
+        self.start_button.clicked.connect(lambda: send_command("!START"))
 
-        # TOGGLE BUTTON
-        self.toggle_button = PyToggle(
-            width = 50,
-            bg_color = self.themes["app_color"]["dark_two"],
-            circle_color = self.themes["app_color"]["icon_color"],
-            active_color = self.themes["app_color"]["context_color"]
-        )
+        self.home_button = MainFunctions.create_click_button("Home", self)
+        self.home_button.clicked.connect(lambda: send_command("!HOME"))
 
-        # TABLE WIDGETS
-        self.table_widget = PyTableWidget(
-            radius = 8,
-            color = self.themes["app_color"]["text_foreground"],
-            selection_color = self.themes["app_color"]["context_color"],
-            bg_color = self.themes["app_color"]["bg_two"],
-            header_horizontal_color = self.themes["app_color"]["dark_two"],
-            header_vertical_color = self.themes["app_color"]["bg_three"],
-            bottom_line_color = self.themes["app_color"]["bg_three"],
-            grid_line_color = self.themes["app_color"]["bg_one"],
-            scroll_bar_bg_color = self.themes["app_color"]["bg_one"],
-            scroll_bar_btn_color = self.themes["app_color"]["dark_four"],
-            context_color = self.themes["app_color"]["context_color"]
-        )
-        self.table_widget.setColumnCount(3)
-        self.table_widget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-        self.table_widget.setSelectionMode(QAbstractItemView.ExtendedSelection)
-        self.table_widget.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.reset_button = MainFunctions.create_click_button("Reset", self)
+        self.reset_button.clicked.connect(lambda: send_command("!RESET"))
 
-        # Columns / Header
-        self.column_1 = QTableWidgetItem()
-        self.column_1.setTextAlignment(Qt.AlignCenter)
-        self.column_1.setText("NAME")
+        self.stop_button = MainFunctions.create_click_button("Stop", self)
+        self.stop_button.clicked.connect(lambda: send_command("!DISABLE"))
 
-        self.column_2 = QTableWidgetItem()
-        self.column_2.setTextAlignment(Qt.AlignCenter)
-        self.column_2.setText("NICK")
+        self.jPos_button = MainFunctions.create_click_button("JPos", self)
+        self.jPos_button.clicked.connect(lambda: send_command("#GETJPOS"))
 
-        self.column_3 = QTableWidgetItem()
-        self.column_3.setTextAlignment(Qt.AlignCenter)
-        self.column_3.setText("PASS")
+        self.lPos_button = MainFunctions.create_click_button("LPos", self)
+        self.lPos_button.clicked.connect(lambda: send_command("#GETLPOS"))
+        # # PY LINE EDIT
+        # self.line_edit = PyLineEdit(
+        #     text = "",
+        #     place_holder_text = "Place holder text",
+        #     radius = 8,
+        #     border_size = 2,
+        #     color = self.themes["app_color"]["text_foreground"],
+        #     selection_color = self.themes["app_color"]["white"],
+        #     bg_color = self.themes["app_color"]["dark_one"],
+        #     bg_color_active = self.themes["app_color"]["dark_three"],
+        #     context_color = self.themes["app_color"]["context_color"]
+        # )
+        # self.line_edit.setMinimumHeight(30)
 
-        # Set column
-        self.table_widget.setHorizontalHeaderItem(0, self.column_1)
-        self.table_widget.setHorizontalHeaderItem(1, self.column_2)
-        self.table_widget.setHorizontalHeaderItem(2, self.column_3)
+        # # TOGGLE BUTTON
+        # self.toggle_button = PyToggle(
+        #     width = 50,
+        #     bg_color = self.themes["app_color"]["dark_two"],
+        #     circle_color = self.themes["app_color"]["icon_color"],
+        #     active_color = self.themes["app_color"]["context_color"]
+        # )
 
-        for x in range(10):
-            row_number = self.table_widget.rowCount()
-            self.table_widget.insertRow(row_number) # Insert row
-            self.table_widget.setItem(row_number, 0, QTableWidgetItem(str("Wanderson"))) # Add name
-            self.table_widget.setItem(row_number, 1, QTableWidgetItem(str("vfx_on_fire_" + str(x)))) # Add nick
-            self.pass_text = QTableWidgetItem()
-            self.pass_text.setTextAlignment(Qt.AlignCenter)
-            self.pass_text.setText("12345" + str(x))
-            self.table_widget.setItem(row_number, 2, self.pass_text) # Add pass
-            self.table_widget.setRowHeight(row_number, 22)
+        # # TABLE WIDGETS
+        # self.table_widget = PyTableWidget(
+        #     radius = 8,
+        #     color = self.themes["app_color"]["text_foreground"],
+        #     selection_color = self.themes["app_color"]["context_color"],
+        #     bg_color = self.themes["app_color"]["bg_two"],
+        #     header_horizontal_color = self.themes["app_color"]["dark_two"],
+        #     header_vertical_color = self.themes["app_color"]["bg_three"],
+        #     bottom_line_color = self.themes["app_color"]["bg_three"],
+        #     grid_line_color = self.themes["app_color"]["bg_one"],
+        #     scroll_bar_bg_color = self.themes["app_color"]["bg_one"],
+        #     scroll_bar_btn_color = self.themes["app_color"]["dark_four"],
+        #     context_color = self.themes["app_color"]["context_color"]
+        # )
+        # self.table_widget.setColumnCount(3)
+        # self.table_widget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        # self.table_widget.setSelectionMode(QAbstractItemView.ExtendedSelection)
+        # self.table_widget.setSelectionBehavior(QAbstractItemView.SelectRows)
+
+        # # Columns / Header
+        # self.column_1 = QTableWidgetItem()
+        # self.column_1.setTextAlignment(Qt.AlignCenter)
+        # self.column_1.setText("NAME")
+
+        # self.column_2 = QTableWidgetItem()
+        # self.column_2.setTextAlignment(Qt.AlignCenter)
+        # self.column_2.setText("NICK")
+
+        # self.column_3 = QTableWidgetItem()
+        # self.column_3.setTextAlignment(Qt.AlignCenter)
+        # self.column_3.setText("PASS")
+
+        # # Set column
+        # self.table_widget.setHorizontalHeaderItem(0, self.column_1)
+        # self.table_widget.setHorizontalHeaderItem(1, self.column_2)
+        # self.table_widget.setHorizontalHeaderItem(2, self.column_3)
+
+        # for x in range(10):
+        #     row_number = self.table_widget.rowCount()
+        #     self.table_widget.insertRow(row_number) # Insert row
+        #     self.table_widget.setItem(row_number, 0, QTableWidgetItem(str("Wanderson"))) # Add name
+        #     self.table_widget.setItem(row_number, 1, QTableWidgetItem(str("vfx_on_fire_" + str(x)))) # Add nick
+        #     self.pass_text = QTableWidgetItem()
+        #     self.pass_text.setTextAlignment(Qt.AlignCenter)
+        #     self.pass_text.setText("12345" + str(x))
+        #     self.table_widget.setItem(row_number, 2, self.pass_text) # Add pass
+        #     self.table_widget.setRowHeight(row_number, 22)
 
         # ADD WIDGETS
         # self.ui.load_pages.row_2_layout.addWidget(self.circular_progress_1)
@@ -565,6 +589,12 @@ class SetupMainWindow:
         self.ui.load_pages.btn_2_Layout.addWidget(self.push_button_a_a,3,1)
         self.ui.load_pages.btn_2_Layout.addWidget(self.push_button_b_a,4,1)
         self.ui.load_pages.btn_2_Layout.addWidget(self.push_button_c_a,5,1)
+        self.ui.load_pages.row_2_layout.addWidget(self.start_button)
+        self.ui.load_pages.row_2_layout.addWidget(self.home_button)
+        self.ui.load_pages.row_2_layout.addWidget(self.reset_button)
+        self.ui.load_pages.row_2_layout.addWidget(self.stop_button)
+        self.ui.load_pages.row_2_layout.addWidget(self.jPos_button)
+        self.ui.load_pages.row_2_layout.addWidget(self.lPos_button)
         # self.ui.load_pages.row_3_layout.addWidget(self.toggle_button)
         # self.ui.load_pages.row_4_layout.addWidget(self.line_edit)
         # self.ui.load_pages.row_5_layout.addWidget(self.table_widget)
