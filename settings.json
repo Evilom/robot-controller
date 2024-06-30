@@ -1,12 +1,12 @@
 {
-    "app_name": "PyOneDark - Modern GUI",
+    "app_name": "Robot Controller",
     "version" : "v1.0.0",
-    "copyright" : "By: Wanderson M. Pimenta",
-    "year" : 2021,
-    "theme_name" : "default",
+    "copyright" : "By: Evilom",
+    "year" : 2024,
+    "theme_name" : "night",
     "custom_title_bar": true,
     "startup_size": [
-        1400,
+        1080,
         720
     ],
     "minimum_size": [

@@ -17,7 +17,6 @@
 # IMPORT PACKAGES AND MODULES
 # ///////////////////////////////////////////////////////////////
 from gui.widgets.py_table_widget.py_table_widget import PyTableWidget
-from . functions_main_window import *
 import sys
 import os
 
@@ -44,6 +43,7 @@ from . ui_main import *
 # MAIN FUNCTIONS 
 # ///////////////////////////////////////////////////////////////
 from . functions_main_window import *
+from . functions_main_window import MainFunctions
 
 # PY WINDOW
 # ///////////////////////////////////////////////////////////////
@@ -218,24 +218,6 @@ class SetupMainWindow:
         )
         MainFunctions.set_right_column_menu(self, self.ui.right_column.menu_1)
 
-        # ///////////////////////////////////////////////////////////////
-        # EXAMPLE CUSTOM WIDGETS
-        # Here are added the custom widgets to pages and columns that
-        # were created using Qt Designer.
-        # This is just an example and should be deleted when creating
-        # your application.
-        #
-        # OBJECTS FOR LOAD PAGES, LEFT AND RIGHT COLUMNS
-        # You can access objects inside Qt Designer projects using
-        # the objects below:
-        #
-        # <OBJECTS>
-        # LEFT COLUMN: self.ui.left_column.menus
-        # RIGHT COLUMN: self.ui.right_column
-        # LOAD PAGES: self.ui.load_pages
-        # </OBJECTS>
-        # ///////////////////////////////////////////////////////////////
-
         # LOAD SETTINGS
         # ///////////////////////////////////////////////////////////////
         settings = Settings()
@@ -319,6 +301,24 @@ class SetupMainWindow:
             bg_color = self.themes["app_color"]["bg_three"]
         )
         self.circular_progress_3.setFixedSize(140,140)
+        self.circular_progress_4 = PyCircularProgress(
+            value = 75,
+            progress_width = 2,
+            progress_color = self.themes["app_color"]["pink"],
+            text_color = self.themes["app_color"]["white"],
+            font_size = 14,
+            bg_color = self.themes["app_color"]["bg_three"]
+        )
+        self.circular_progress_4.setFixedSize(140,140)
+        self.circular_progress_5 = PyCircularProgress(
+            value = 75,
+            progress_width = 2,
+            progress_color = self.themes["app_color"]["pink"],
+            text_color = self.themes["app_color"]["white"],
+            font_size = 14,
+            bg_color = self.themes["app_color"]["bg_three"]
+        )
+        self.circular_progress_5.setFixedSize(140,140)
 
         # PY SLIDER 1
         self.vertical_slider_1 = PySlider(
@@ -432,29 +432,30 @@ class SetupMainWindow:
             is_active = True
         )
 
-        # PUSH BUTTON 1
-        self.push_button_1 = PyPushButton(
-            text = "Button Without Icon",
-            radius  =8,
-            color = self.themes["app_color"]["text_foreground"],
-            bg_color = self.themes["app_color"]["dark_one"],
-            bg_color_hover = self.themes["app_color"]["dark_three"],
-            bg_color_pressed = self.themes["app_color"]["dark_four"]
-        )
-        self.push_button_1.setMinimumHeight(40)
-
-        # PUSH BUTTON 2
-        self.push_button_2 = PyPushButton(
-            text = "Button With Icon",
-            radius = 8,
-            color = self.themes["app_color"]["text_foreground"],
-            bg_color = self.themes["app_color"]["dark_one"],
-            bg_color_hover = self.themes["app_color"]["dark_three"],
-            bg_color_pressed = self.themes["app_color"]["dark_four"]
-        )
-        self.icon_2 = QIcon(Functions.set_svg_icon("icon_settings.svg"))
-        self.push_button_2.setMinimumHeight(40)
-        self.push_button_2.setIcon(self.icon_2)
+        self.push_button_j1_s = MainFunctions.create_push_button("J1 -", self)
+        self.push_button_j2_s = MainFunctions.create_push_button("J2 -", self)
+        self.push_button_j3_s = MainFunctions.create_push_button("J3 -", self)
+        self.push_button_j4_s = MainFunctions.create_push_button("J4 -", self)
+        self.push_button_j5_s = MainFunctions.create_push_button("J5 -", self)
+        self.push_button_j6_s = MainFunctions.create_push_button("J6 -", self)
+        self.push_button_j1_a = MainFunctions.create_push_button("J1 +", self)
+        self.push_button_j2_a = MainFunctions.create_push_button("J2 +", self)
+        self.push_button_j3_a = MainFunctions.create_push_button("J3 +", self)
+        self.push_button_j4_a = MainFunctions.create_push_button("J4 +", self)
+        self.push_button_j5_a = MainFunctions.create_push_button("J5 +", self)
+        self.push_button_j6_a = MainFunctions.create_push_button("J6 +", self)
+        self.push_button_x_s = MainFunctions.create_push_button("X -", self)
+        self.push_button_y_s = MainFunctions.create_push_button("Y -", self)
+        self.push_button_z_s = MainFunctions.create_push_button("Z -", self)
+        self.push_button_a_s = MainFunctions.create_push_button("A -", self)
+        self.push_button_b_s = MainFunctions.create_push_button("B -", self)
+        self.push_button_c_s = MainFunctions.create_push_button("C -", self)
+        self.push_button_x_a = MainFunctions.create_push_button("X +", self)
+        self.push_button_y_a = MainFunctions.create_push_button("Y +", self)
+        self.push_button_z_a = MainFunctions.create_push_button("Z +", self)
+        self.push_button_a_a = MainFunctions.create_push_button("A +", self)
+        self.push_button_b_a = MainFunctions.create_push_button("B +", self)
+        self.push_button_c_a = MainFunctions.create_push_button("C +", self)
 
         # PY LINE EDIT
         self.line_edit = PyLineEdit(
@@ -527,21 +528,46 @@ class SetupMainWindow:
             self.table_widget.setRowHeight(row_number, 22)
 
         # ADD WIDGETS
-        self.ui.load_pages.row_1_layout.addWidget(self.circular_progress_1)
-        self.ui.load_pages.row_1_layout.addWidget(self.circular_progress_2)
-        self.ui.load_pages.row_1_layout.addWidget(self.circular_progress_3)
-        self.ui.load_pages.row_2_layout.addWidget(self.vertical_slider_1)
-        self.ui.load_pages.row_2_layout.addWidget(self.vertical_slider_2)
-        self.ui.load_pages.row_2_layout.addWidget(self.vertical_slider_3)
-        self.ui.load_pages.row_2_layout.addWidget(self.vertical_slider_4)
-        self.ui.load_pages.row_3_layout.addWidget(self.icon_button_1)
-        self.ui.load_pages.row_3_layout.addWidget(self.icon_button_2)
-        self.ui.load_pages.row_3_layout.addWidget(self.icon_button_3)
-        self.ui.load_pages.row_3_layout.addWidget(self.push_button_1)
-        self.ui.load_pages.row_3_layout.addWidget(self.push_button_2)
-        self.ui.load_pages.row_3_layout.addWidget(self.toggle_button)
-        self.ui.load_pages.row_4_layout.addWidget(self.line_edit)
-        self.ui.load_pages.row_5_layout.addWidget(self.table_widget)
+        # self.ui.load_pages.row_2_layout.addWidget(self.circular_progress_1)
+        # self.ui.load_pages.row_2_layout.addWidget(self.circular_progress_2)
+        # self.ui.load_pages.row_2_layout.addWidget(self.circular_progress_3)
+        # self.ui.load_pages.row_2_layout.addWidget(self.circular_progress_4)
+        # self.ui.load_pages.row_2_layout.addWidget(self.circular_progress_5)
+        # self.ui.load_pages.row_2_layout.addWidget(self.vertical_slider_1)
+        # self.ui.load_pages.row_2_layout.addWidget(self.vertical_slider_2)
+        # self.ui.load_pages.row_2_layout.addWidget(self.vertical_slider_3)
+        # self.ui.load_pages.row_2_layout.addWidget(self.vertical_slider_4)
+        # self.ui.load_pages.row_2_layout.addWidget(self.icon_button_1)
+        # self.ui.load_pages.row_2_layout.addWidget(self.icon_button_2)
+        # self.ui.load_pages.row_2_layout.addWidget(self.icon_button_3)
+        self.ui.load_pages.btn_1_Layout.addWidget(self.push_button_j1_s,0,0)
+        self.ui.load_pages.btn_1_Layout.addWidget(self.push_button_j2_s,1,0)
+        self.ui.load_pages.btn_1_Layout.addWidget(self.push_button_j3_s,2,0)
+        self.ui.load_pages.btn_1_Layout.addWidget(self.push_button_j4_s,3,0)
+        self.ui.load_pages.btn_1_Layout.addWidget(self.push_button_j5_s,4,0)
+        self.ui.load_pages.btn_1_Layout.addWidget(self.push_button_j6_s,5,0)
+        self.ui.load_pages.btn_1_Layout.addWidget(self.push_button_j1_a,0,1)
+        self.ui.load_pages.btn_1_Layout.addWidget(self.push_button_j2_a,1,1)
+        self.ui.load_pages.btn_1_Layout.addWidget(self.push_button_j3_a,2,1)
+        self.ui.load_pages.btn_1_Layout.addWidget(self.push_button_j4_a,3,1)
+        self.ui.load_pages.btn_1_Layout.addWidget(self.push_button_j5_a,4,1)
+        self.ui.load_pages.btn_1_Layout.addWidget(self.push_button_j6_a,5,1)
+
+        self.ui.load_pages.btn_2_Layout.addWidget(self.push_button_x_s,0,0)
+        self.ui.load_pages.btn_2_Layout.addWidget(self.push_button_y_s,1,0)
+        self.ui.load_pages.btn_2_Layout.addWidget(self.push_button_z_s,2,0)
+        self.ui.load_pages.btn_2_Layout.addWidget(self.push_button_a_s,3,0)
+        self.ui.load_pages.btn_2_Layout.addWidget(self.push_button_b_s,4,0)
+        self.ui.load_pages.btn_2_Layout.addWidget(self.push_button_c_s,5,0)
+        self.ui.load_pages.btn_2_Layout.addWidget(self.push_button_x_a,0,1)
+        self.ui.load_pages.btn_2_Layout.addWidget(self.push_button_y_a,1,1)
+        self.ui.load_pages.btn_2_Layout.addWidget(self.push_button_z_a,2,1)
+        self.ui.load_pages.btn_2_Layout.addWidget(self.push_button_a_a,3,1)
+        self.ui.load_pages.btn_2_Layout.addWidget(self.push_button_b_a,4,1)
+        self.ui.load_pages.btn_2_Layout.addWidget(self.push_button_c_a,5,1)
+        # self.ui.load_pages.row_3_layout.addWidget(self.toggle_button)
+        # self.ui.load_pages.row_4_layout.addWidget(self.line_edit)
+        # self.ui.load_pages.row_5_layout.addWidget(self.table_widget)
 
         # RIGHT COLUMN
         # ///////////////////////////////////////////////////////////////

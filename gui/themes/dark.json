@@ -1,0 +1,28 @@
+{
+    "theme_name" : "dark",
+    "app_color" : {
+        "dark_one" : "#111111",
+        "dark_two" : "#141414",
+        "dark_three" : "#171717",
+        "dark_four" : "#1a1a1a",
+        "bg_one" : "#1d1d1d",
+        "bg_two" : "#202020",
+        "bg_three" : "#232323",
+        "icon_color" : "#707070",
+        "icon_hover" : "#808080",
+        "icon_pressed" : "#909090",
+        "icon_active" : "#a0a0a0",
+        "context_color" : "#568af2",
+        "context_hover" : "#6c99f4",
+        "context_pressed" : "#3f6fd1",
+        "text_title" : "#ffffff",
+        "text_foreground" : "#b3b3b3",
+        "text_description" : "#808080",
+        "text_active" : "#ffffff",
+        "white" : "#333333",
+        "pink" : "#ff007f",
+        "green" : "#00ff7f",
+        "red" : "#ff5555",
+        "yellow" : "#f1fa8c"
+    }
+}

@@ -20,6 +20,7 @@ import sys
 
 # IMPORT QT CORE
 # ///////////////////////////////////////////////////////////////
+from logic.main_logic import handle_button_click
 from qt_core import *
 
 # LOAD UI MAIN
@@ -143,3 +144,16 @@ class MainFunctions():
         self.group.addAnimation(self.left_box)
         self.group.addAnimation(self.right_box)
         self.group.start()
+
+    def create_push_button(text, parent):
+        button = PyPushButton(
+            text=text,
+            radius=8,
+            color=parent.themes["app_color"]["text_foreground"],
+            bg_color=parent.themes["app_color"]["dark_one"],
+            bg_color_hover=parent.themes["app_color"]["dark_three"],
+            bg_color_pressed=parent.themes["app_color"]["dark_four"]
+        )
+        button.setMinimumHeight(40)
+        button.clicked.connect(lambda: handle_button_click(text))
+        return button

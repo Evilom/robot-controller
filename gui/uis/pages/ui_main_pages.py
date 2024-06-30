@@ -1,23 +1,14 @@
-# ///////////////////////////////////////////////////////////////
-#
-# BY: WANDERSON M.PIMENTA
-# PROJECT MADE WITH: Qt Designer and PySide6
-# V: 1.0.0
-#
-# This project can be used freely for all uses, as long as they maintain the
-# respective credits only in the Python scripts, any information in the visual
-# interface (GUI) can be modified without any implication.
-#
-# There are limitations on Qt licenses if you want to use your products
-# commercially, I recommend reading them on the official website:
-# https://doc.qt.io/qtforpython/licenses.html
-#
-# ///////////////////////////////////////////////////////////////
+# -*- coding: utf-8 -*-
 
-# IMPORT QT CORE
-# ///////////////////////////////////////////////////////////////
+################################################################################
+## Form generated from reading UI file 'main_pagesRdQddN.ui'
+##
+## Created by: Qt User Interface Compiler version 6.4.2
+##
+## WARNING! All changes made in this file will be lost when recompiling UI file!
+################################################################################
+
 from qt_core import *
-
 
 class Ui_MainPages(object):
     def setupUi(self, MainPages):
@@ -91,26 +82,19 @@ class Ui_MainPages(object):
         self.verticalLayout.setSpacing(15)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setContentsMargins(5, 5, 5, 5)
-        self.title_label = QLabel(self.contents)
-        self.title_label.setObjectName(u"title_label")
-        self.title_label.setMaximumSize(QSize(16777215, 40))
-        font = QFont()
-        font.setPointSize(16)
-        self.title_label.setFont(font)
-        self.title_label.setStyleSheet(u"font-size: 16pt")
-        self.title_label.setAlignment(Qt.AlignCenter)
-
-        self.verticalLayout.addWidget(self.title_label)
-
-        self.description_label = QLabel(self.contents)
-        self.description_label.setObjectName(u"description_label")
-        self.description_label.setAlignment(Qt.AlignHCenter|Qt.AlignTop)
-        self.description_label.setWordWrap(True)
-
-        self.verticalLayout.addWidget(self.description_label)
-
         self.row_1_layout = QHBoxLayout()
         self.row_1_layout.setObjectName(u"row_1_layout")
+        self.btn_1_Layout = QGridLayout()
+        self.btn_1_Layout.setObjectName(u"btn_1_Layout")
+        self.btn_1_Layout.setSizeConstraint(QLayout.SetFixedSize)
+
+        self.row_1_layout.addLayout(self.btn_1_Layout)
+
+        self.btn_2_Layout = QGridLayout()
+        self.btn_2_Layout.setObjectName(u"btn_2_Layout")
+
+        self.row_1_layout.addLayout(self.btn_2_Layout)
+
 
         self.verticalLayout.addLayout(self.row_1_layout)
 
@@ -148,6 +132,8 @@ class Ui_MainPages(object):
         self.page_3_layout.setObjectName(u"page_3_layout")
         self.empty_page_label = QLabel(self.page_3)
         self.empty_page_label.setObjectName(u"empty_page_label")
+        font = QFont()
+        font.setPointSize(16)
         self.empty_page_label.setFont(font)
         self.empty_page_label.setAlignment(Qt.AlignCenter)
 
@@ -160,7 +146,7 @@ class Ui_MainPages(object):
 
         self.retranslateUi(MainPages)
 
-        self.pages.setCurrentIndex(0)
+        self.pages.setCurrentIndex(1)
 
 
         QMetaObject.connectSlotsByName(MainPages)
@@ -168,10 +154,7 @@ class Ui_MainPages(object):
 
     def retranslateUi(self, MainPages):
         MainPages.setWindowTitle(QCoreApplication.translate("MainPages", u"Form", None))
-        self.label.setText(QCoreApplication.translate("MainPages", u"Welcome To PyOneDark GUI", None))
-        self.title_label.setText(QCoreApplication.translate("MainPages", u"Custom Widgets Page", None))
-        self.description_label.setText(QCoreApplication.translate("MainPages", u"Here will be all the custom widgets, they will be added over time on this page.\n"
-"I will try to always record a new tutorial when adding a new Widget and updating the project on Patreon before launching on GitHub and GitHub after the public release.", None))
+        self.label.setText(QCoreApplication.translate("MainPages", u"Welcome To Robot Controller", None))
         self.empty_page_label.setText(QCoreApplication.translate("MainPages", u"Empty Page", None))
     # retranslateUi
 
