@@ -1,4 +1,6 @@
 import sys
+
+import numpy as np
 sys.path.append(".")
 import time
 import serial
@@ -22,7 +24,7 @@ moveSpeed = 5
 ikMethod = 'default'
 canGetJPOs = False
 canGetLPOs = False
-x_offset = 0
+x_offset = 180
 y_offset = 0
 z_offset = 200
 
@@ -49,26 +51,59 @@ def handle_single_axis(axis, action):
     send_command(formatCommand(jPos))
 
 def auto_run(path):
-    threading.Thread(target=auto_run_func,args=(path,), daemon=True).start()
+    threading.Thread(target=auto_run_func, args=(path,), daemon=True).start()
 
 def auto_run_func(path):
-    global jPos,lPos,x_offset,y_offset,z_offset,ikMethod
+    global jPos, lPos, x_offset, y_offset, z_offset, ikMethod,t,moveSpeed
     with open(path, "r") as file:
         lines = file.readlines()
-    for line in lines:
-        time.sleep(0.5)
+    
+    # 初始化轨迹列表
+    trajectory_points = []
+    
+    # 假设的速度和时间步长
+    speed = 5  # 速度，单位：m/s
+    time_step = 0.05  # 时间步长，单位：s
+    
+    for i, line in enumerate(lines):
         parts = line.split()
         if len(parts) != 7:
-            raise ValueError("Invalid line format")    
-        lPos = [float(parts[1])+x_offset, float(parts[2])+y_offset, float(parts[3])+z_offset,float(parts[4]), float(parts[5]), float(parts[6])]
-        if(ikMethod == 'default'):
-            send_command(formatCommand(lPos,'@'))
-        elif (ikMethod == 'common'):
-            p = lPos.copy()
+            raise ValueError("Invalid line format")
+        
+        lPos = [float(parts[1]) + x_offset, float(parts[2]) + y_offset, float(parts[3]) + z_offset, float(parts[4]), float(parts[5]), float(parts[6])]
+        
+        # 如果是第一行，直接添加到轨迹列表
+        if i == 0:
+            trajectory_points.append(lPos)
+        else:
+            # 只在common模式下进行插值
+            if ikMethod == 'common':
+                prev_lPos = np.array(trajectory_points[-1][:3])  # 转换为NumPy数组
+                current_lPos = np.array(lPos[:3])  # 转换为NumPy数组
+                distance = np.linalg.norm(current_lPos - prev_lPos)
+                num_steps = int(distance / speed / time_step)
+                
+                for j in range(num_steps):
+                    ti = j / num_steps
+                    intermediate_position = prev_lPos + ti * (current_lPos - prev_lPos)
+                    intermediate_lPos = list(intermediate_position) + lPos[3:]  # 复制姿态部分
+                    trajectory_points.append(intermediate_lPos)
+        
+        # 如果是最后一行，直接添加到轨迹列表
+        if i == len(lines) - 1:
+            trajectory_points.append(lPos)
+    
+    # 发送轨迹点
+    for pos in trajectory_points:
+        time.sleep(1)
+        if ikMethod == 'default':
+            # 在default模式下不发送命令
+            pass
+        elif ikMethod == 'common':
+            p = pos.copy()
             p[2] -= 109
             jPos = ikine(a, d, p, t, 1)
-            jPos = deg2pul(jPos,pu)
-            print(jPos)
+            jPos = deg2pul(jPos, pu)
             send_command(formatCommand(jPos))
 
 def set_move_step(step):
@@ -126,6 +161,7 @@ def connect_to_serial(comport):
 
 def send_command(command):
     global ser,canGetJPOs,canGetLPOs,lPos,jPos
+    print(command)
     if ser and ser.is_open:
         ser.write(f'{command}\n'.encode('utf-8'))
         if command == '#GETJPOS':

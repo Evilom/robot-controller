@@ -122,7 +122,7 @@ def main():
         ("Stop", lambda: send_command('!DISABLE')),
         ("JPos", lambda: send_command('#GETJPOS')),
         ("LPos", lambda: send_command('#GETLPOS')),
-        ("AutoRun", lambda: auto_run('data\input.txt')),
+        ("AutoRun", lambda: auto_run('data/input.txt')),
     ]
 
     for idx, (text, cmd) in enumerate(buttons):
