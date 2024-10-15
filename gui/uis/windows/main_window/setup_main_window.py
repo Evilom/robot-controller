@@ -482,18 +482,26 @@ class SetupMainWindow:
         self.lPos_button = MainFunctions.create_click_button("LPos", self)
         self.lPos_button.clicked.connect(lambda: send_command("#GETLPOS"))
         # # PY LINE EDIT
-        # self.line_edit = PyLineEdit(
-        #     text = "",
-        #     place_holder_text = "Place holder text",
-        #     radius = 8,
-        #     border_size = 2,
-        #     color = self.themes["app_color"]["text_foreground"],
-        #     selection_color = self.themes["app_color"]["white"],
-        #     bg_color = self.themes["app_color"]["dark_one"],
-        #     bg_color_active = self.themes["app_color"]["dark_three"],
-        #     context_color = self.themes["app_color"]["context_color"]
-        # )
-        # self.line_edit.setMinimumHeight(30)
+        self.line_edit = PyLineEdit(
+            text = "",
+            place_holder_text = "Place holder text",
+            radius = 8,
+            border_size = 2,
+            color = self.themes["app_color"]["text_foreground"],
+            selection_color = self.themes["app_color"]["white"],
+            bg_color = self.themes["app_color"]["dark_one"],
+            bg_color_active = self.themes["app_color"]["dark_three"],
+            context_color = self.themes["app_color"]["context_color"]
+        )
+        self.line_edit.setMinimumHeight(40)
+        self.line_edit.setMaximumWidth(800)
+
+        self.send_button = MainFunctions.create_click_button("Send", self)
+        self.send_button.clicked.connect(lambda: send_command(self.line_edit.text()))
+        
+        self.ik_method_button = PySpinBox( )
+        self.ik_method_button.setMaximumHeight(40)
+        
 
         # # TOGGLE BUTTON
         # self.toggle_button = PyToggle(
@@ -595,8 +603,10 @@ class SetupMainWindow:
         self.ui.load_pages.row_2_layout.addWidget(self.stop_button)
         self.ui.load_pages.row_2_layout.addWidget(self.jPos_button)
         self.ui.load_pages.row_2_layout.addWidget(self.lPos_button)
+        self.ui.load_pages.row_3_layout.addWidget(self.line_edit)
+        self.ui.load_pages.row_3_layout.addWidget(self.send_button)
+        self.ui.load_pages.row_4_layout.addWidget(self.ik_method_button)
         # self.ui.load_pages.row_3_layout.addWidget(self.toggle_button)
-        # self.ui.load_pages.row_4_layout.addWidget(self.line_edit)
         # self.ui.load_pages.row_5_layout.addWidget(self.table_widget)
 
         # RIGHT COLUMN
