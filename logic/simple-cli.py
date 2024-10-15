@@ -297,8 +297,8 @@ def loop(count):
 def home():
     if checkSerial() == -1:
         return
-    ser.write(b'#CMDMODE 1\n')
-    ser.write(b'&0,-71,180,0,0,0,30\n')
+    ser.write(b'!HOME\n')
+    # ser.write(b'&0,-71,180,0,0,0,30\n')
 
 
 def loop2(count):

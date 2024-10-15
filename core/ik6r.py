@@ -93,7 +93,7 @@ def deg2pul(dp, pul):
     k5 = pul[4] + dp[4]
     k6 = pul[5] + dp[5]
     # 将每个元素格式化为小数点后两位
-    return [round(k1, 2), round(k2, 2), round(k3, 2), round(k4, 2), round(k5, 2), round(-(k6+360)%360, 2)]
+    return [round(k1, 2), round(k2, 2), round(k3, 2), round(k4, 2), round(k5, 2), round(k6, 2)]
 
 
 def process_line(line, x_offset, y_offset, z_offset):
