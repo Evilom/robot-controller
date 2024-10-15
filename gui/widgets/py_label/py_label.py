@@ -22,7 +22,7 @@ class PyLabel(QLabel):
         text = "",
         radius = 8,
         color = "#FFF",
-        bg_color = "#333",
+        bg_color = "transparent",
         padding="5px",
         parent = None,
     ):

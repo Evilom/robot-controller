@@ -499,7 +499,7 @@ class SetupMainWindow:
         self.send_button = MainFunctions.create_click_button("Send", self)
         self.send_button.clicked.connect(lambda: send_command(self.line_edit.text()))
         
-        self.ik_method_button = PySpinBox( )
+        self.ik_method_button = PyLabel(text="ssssss" )
         self.ik_method_button.setMaximumHeight(40)
         
 
